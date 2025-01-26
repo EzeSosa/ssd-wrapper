@@ -27,7 +27,6 @@ export class CubeComponent implements OnInit {
   #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   #cubesService: CubesService = inject(CubesService);
   #router: Router = inject(Router);
-  #path: string = '';
 
   title: string = '';
   queries: Query[] = [];

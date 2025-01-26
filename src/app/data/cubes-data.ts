@@ -13,7 +13,23 @@ export const CUBES_DATA: Cube[] = [
         title: 'Ganancias',
         description:
           'Ganancias de Ventas por cliente y tamaño de envase recuperadas por mes durante el último año.',
-        dimensions: ['Tiempo', 'Cliente', 'Tamaño de Envase'],
+        dimensions: [
+          {
+            name: 'Tiempo',
+            type: 'date',
+            bodyName: 'fecha',
+          },
+          {
+            name: 'Cliente',
+            type: 'selector',
+            bodyName: 'cliente',
+          },
+          {
+            name: 'Tamaño de Envase',
+            type: 'selector',
+            bodyName: 'tamaño_envase',
+          },
+        ],
       },
       {
         id: 'ventas-2',
@@ -21,10 +37,26 @@ export const CUBES_DATA: Cube[] = [
         description:
           'Cantidad de Lotes de Envases vendidos según cierre, boca y fondo recuperados por mes durante el último año.',
         dimensions: [
-          'Tiempo',
-          'Tipo de Cierre',
-          'Tipo de Boca',
-          'Tipo de Fondo',
+          {
+            name: 'Tiempo',
+            type: 'date',
+            bodyName: 'fecha',
+          },
+          {
+            name: 'Tipo de Cierre',
+            type: 'selector',
+            bodyName: 'tipo_cierre',
+          },
+          {
+            name: 'Tipo de Boca',
+            type: 'selector',
+            bodyName: 'tipo_boca',
+          },
+          {
+            name: 'Tipo de Fondo',
+            type: 'selector',
+            bodyName: 'tipo_fondo',
+          },
         ],
       },
     ],
@@ -41,14 +73,46 @@ export const CUBES_DATA: Cube[] = [
         title: 'Precio Promedio',
         description:
           'Precio promedio de órdenes de compra por proveedor y tamaño de insumo recuperados por mes realizadas durante el último año.',
-        dimensions: ['Tiempo', 'Proveedor', 'Tamaño de Insumo'],
+        dimensions: [
+          {
+            name: 'Tiempo',
+            type: 'date',
+            bodyName: 'fecha',
+          },
+          {
+            name: 'Proveedor',
+            type: 'selector',
+            bodyName: 'proveedor',
+          },
+          {
+            name: 'Tamaño de Insumo',
+            type: 'selector',
+            bodyName: 'tamaño_insumo',
+          },
+        ],
       },
       {
         id: 'compras-2',
         title: 'Insumos',
         description:
           'Insumos de órdenes de compra por proveedor y tamaño recuperados por día durante el último mes.',
-        dimensions: ['Tiempo', 'Proveedor', 'Tamaño de Insumo'],
+        dimensions: [
+          {
+            name: 'Tiempo',
+            type: 'date',
+            bodyName: 'fecha',
+          },
+          {
+            name: 'Proveedor',
+            type: 'selector',
+            bodyName: 'proveedor',
+          },
+          {
+            name: 'Tamaño de Insumo',
+            type: 'selector',
+            bodyName: 'tamaño_insumo',
+          },
+        ],
       },
     ],
   },
@@ -64,7 +128,23 @@ export const CUBES_DATA: Cube[] = [
         title: 'Tipos de Envases',
         description:
           'Tipos de envases producidos según cliente e insumo recuperados por día durante el último mes.',
-        dimensions: ['Tiempo', 'Cliente', 'Insumo'],
+        dimensions: [
+          {
+            name: 'Tiempo',
+            type: 'date',
+            bodyName: 'fecha',
+          },
+          {
+            name: 'Cliente',
+            type: 'selector',
+            bodyName: 'cliente',
+          },
+          {
+            name: 'Insumo',
+            type: 'selector',
+            bodyName: 'insumo',
+          },
+        ],
       },
     ],
   },

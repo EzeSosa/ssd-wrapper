@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { Dimension } from '../../interfaces/dimension.interface';
 
 @Component({
   standalone: true,
@@ -17,7 +18,7 @@ export class QueryCardComponent {
   @Input() description!: string;
   @Input() icon!: string;
   @Input() path!: string;
-  @Input() dimensions!: string[];
+  @Input() dimensions!: Dimension[];
 
   #router: Router = inject(Router);
 

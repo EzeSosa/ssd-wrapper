@@ -13,7 +13,7 @@
       <div class="chip-container">
         <span class="chip-label"> Dimensiones </span>
         @for (dimension of dimensions; track $index) {
-        <mat-chip>{{ dimension }}</mat-chip>
+        <mat-chip>{{ dimension.name }}</mat-chip>
         }
       </div>
     </mat-chip-set>
