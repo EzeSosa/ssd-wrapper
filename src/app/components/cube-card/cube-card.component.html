@@ -1,0 +1,22 @@
+<mat-card
+  class="cube-card"
+  (mouseenter)="hoverCard = true"
+  (mouseleave)="hoverCard = false"
+>
+  <mat-card-title class="card-title">
+    <mat-icon class="card-icon">{{ icon }}</mat-icon>
+    {{ title }}
+  </mat-card-title>
+  <mat-card-content class="card-content">{{ description }}</mat-card-content>
+  <div class="button-container">
+    <button
+      mat-stroked-button
+      class="card-button"
+      (mouseenter)="hoverButton = true"
+      (mouseleave)="hoverButton = false"
+      (click)="onSeeMore()"
+    >
+      Ver más
+    </button>
+  </div>
+</mat-card>

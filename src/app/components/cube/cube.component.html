@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <span style="font-weight: 600; font-size: 1.5rem">{{ title }}</span>
+  <button
+    mat-icon-button
+    class="back-button"
+    matTooltip="Volver"
+    (click)="onGoBack()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="card-container">
+  @for (query of queries; track $index) {
+  <query-card
+    [title]="query.title"
+    [description]="query.description"
+    [icon]="'info'"
+    [path]="query.id"
+    [dimensions]="query.dimensions"
+  />
+  }
+</div>

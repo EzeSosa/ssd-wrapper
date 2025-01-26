@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span style="font-weight: 600; font-size: 1.5rem"
+    >¡Explora nuestras opciones de cubos OLAP!</span
+  >
+</mat-toolbar>
+
+<div class="card-container">
+  @for (cube of cubes; track $index) {
+  <cube-card
+    [title]="cube.title"
+    [description]="cube.description"
+    [icon]="cube.icon"
+    [path]="cube.id"
+  ></cube-card>
+  }
+</div>

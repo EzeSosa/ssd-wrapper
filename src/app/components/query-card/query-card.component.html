@@ -7,16 +7,27 @@
     <mat-icon class="card-icon">{{ icon }}</mat-icon>
     {{ title }}
   </mat-card-title>
-  <mat-card-content class="card-content">{{ description }}</mat-card-content>
+  <mat-card-content class="card-content">
+    {{ description }}
+    <mat-chip-set style="margin-top: 15px" label="Dimension-selection">
+      <div class="chip-container">
+        <span class="chip-label"> Dimensiones </span>
+        @for (dimension of dimensions; track $index) {
+        <mat-chip>{{ dimension }}</mat-chip>
+        }
+      </div>
+    </mat-chip-set>
+  </mat-card-content>
   <div class="button-container">
     <button
-      mat-raised-button
+      mat-stroked-button
       color="primary"
       class="card-button"
       (mouseenter)="hoverButton = true"
       (mouseleave)="hoverButton = false"
+      (click)="onQuery()"
     >
-      Ver más
+      Consultar
     </button>
   </div>
 </mat-card>

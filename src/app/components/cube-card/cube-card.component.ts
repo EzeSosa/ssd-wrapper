@@ -1,30 +1,28 @@
 import { Component, inject, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
-  selector: 'query-card',
-  templateUrl: 'query-card.component.html',
-  styleUrl: 'query-card.component.css',
-  imports: [MatCardModule, MatIconModule, MatChipsModule, MatButtonModule],
+  selector: 'cube-card',
+  templateUrl: 'cube-card.component.html',
+  styleUrl: 'cube-card.component.css',
+  imports: [MatCardModule, MatIconModule, MatButtonModule],
 })
-export class QueryCardComponent {
+export class CubeCardComponent {
   @Input() title!: string;
   @Input() description!: string;
   @Input() icon!: string;
   @Input() path!: string;
-  @Input() dimensions!: string[];
 
   #router: Router = inject(Router);
 
   hoverCard: boolean = false;
   hoverButton: boolean = false;
 
-  onQuery(): void {
-    this.#router.navigate(['/queries', this.path]);
+  onSeeMore(): void {
+    this.#router.navigate(['/cubes', this.path]);
   }
 }
