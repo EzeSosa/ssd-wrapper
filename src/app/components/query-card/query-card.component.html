@@ -1,0 +1,22 @@
+<mat-card
+  class="query-card"
+  (mouseenter)="hoverCard = true"
+  (mouseleave)="hoverCard = false"
+>
+  <mat-card-title class="card-title">
+    <mat-icon class="card-icon">{{ icon }}</mat-icon>
+    {{ title }}
+  </mat-card-title>
+  <mat-card-content class="card-content">{{ description }}</mat-card-content>
+  <div class="button-container">
+    <button
+      mat-raised-button
+      color="primary"
+      class="card-button"
+      (mouseenter)="hoverButton = true"
+      (mouseleave)="hoverButton = false"
+    >
+      Ver más
+    </button>
+  </div>
+</mat-card>
