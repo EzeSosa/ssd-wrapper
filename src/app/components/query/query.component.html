@@ -26,10 +26,30 @@
           <mat-form-field appearance="outline">
             <mat-label>{{ dimension.name }}</mat-label>
             <mat-select formControlName="{{ dimension.bodyName }}">
-              @for (option of getOptions(dimension); track $index) {
-              <mat-option [value]="option">{{ option }}</mat-option>
-              }
+              <ng-container
+                *ngFor="
+                  let option of getOptions(dimension.bodyName);
+                  let i = index
+                "
+              >
+                <mat-option [value]="option">{{ option }}</mat-option>
+              </ng-container>
             </mat-select>
+          </mat-form-field>
+          } @case ('date') {
+          <mat-form-field appearance="outline">
+            <mat-label>{{ dimension.name }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="{{ dimension.bodyName }}"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           } @default {
           <mat-form-field appearance="outline">
