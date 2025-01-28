@@ -26,7 +26,7 @@ import { Query } from '../../interfaces/query.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ServiceFactory } from '../../factory/service.factory';
-import { DtoInterface } from '../../interfaces/dtos/dto.interface';
+import { DtoInterface } from '../../dtos/dto.interface';
 
 @Component({
   standalone: true,

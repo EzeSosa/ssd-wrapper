@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BaseService } from '../interfaces/service.interface';
-import { FundType } from '../interfaces/dtos/fund-type.dto';
+import { FundType } from '../dtos/fund-type.dto';
 
 @Injectable({ providedIn: 'root' })
 export class FundTypeService implements BaseService<FundType> {

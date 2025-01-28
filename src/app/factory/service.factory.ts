@@ -3,11 +3,14 @@ import { map } from 'rxjs';
 import { ClientService } from '../services/client.service';
 import { BaseService } from '../interfaces/service.interface';
 import { ContainerSizeService } from '../services/container-size.service';
-import { DtoInterface } from '../interfaces/dtos/dto.interface';
+import { DtoInterface } from '../dtos/dto.interface';
 import { DtoFactory } from './dto.factory';
 import { ClosureTypeService } from '../services/closure-type.service';
 import { EntranceTypeService } from '../services/entrance-type.service';
 import { FundTypeService } from '../services/fund-type.service';
+import { SupplierService } from '../services/supplier.service';
+import { InputSizeService } from '../services/input-size.service';
+import { InputService } from '../services/input.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +25,9 @@ export class ServiceFactory {
     tipo_cierre: ClosureTypeService,
     tipo_boca: EntranceTypeService,
     tipo_fondo: FundTypeService,
+    proveedor: SupplierService,
+    tamaño_insumo: InputSizeService,
+    insumo: InputService,
   };
 
   createService<T extends DtoInterface>(bodyName: string): BaseService<T> {

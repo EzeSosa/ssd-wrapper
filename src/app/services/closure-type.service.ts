@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ClosureType } from '../interfaces/dtos/closure-type.dto';
+import { ClosureType } from '../dtos/closure-type.dto';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
