@@ -59,7 +59,7 @@ export class QueryComponent implements OnInit {
 
   formGroup!: FormGroup;
   query!: Query;
-  options: { [key: string]: string[] } = {};
+  options: { [key: string]: DtoInterface[] } = {};
 
   ngOnInit(): void {
     this.loadQuery();
@@ -92,7 +92,7 @@ export class QueryComponent implements OnInit {
   }
 
   private loadOptions(query: Query): void {
-    const newOptions: { [key: string]: string[] } = {};
+    const newOptions: { [key: string]: DtoInterface[] } = {};
 
     query.dimensions.forEach((dimension) => {
       if (dimension.bodyName === 'fecha') return;
@@ -101,9 +101,7 @@ export class QueryComponent implements OnInit {
         .getAll()
         .subscribe({
           next: (dtos) => {
-            newOptions[dimension.bodyName] = dtos.map((dto) =>
-              dto.buildPresentation()
-            );
+            newOptions[dimension.bodyName] = dtos;
             this.options = { ...this.options, ...newOptions };
           },
           error: (error) => console.error(error),
@@ -111,7 +109,7 @@ export class QueryComponent implements OnInit {
     });
   }
 
-  getOptions(bodyName: string): string[] {
+  getOptions(bodyName: string): DtoInterface[] {
     return this.options[bodyName] || [];
   }
 

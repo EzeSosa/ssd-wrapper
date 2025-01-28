@@ -7,4 +7,8 @@ export class Supplier implements DtoInterface {
   buildPresentation(): string {
     return this.nombre_proveedor;
   }
+
+  getId(): number {
+    return this._id;
+  }
 }

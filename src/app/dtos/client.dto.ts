@@ -7,4 +7,8 @@ export class Client implements DtoInterface {
   buildPresentation(): string {
     return this.cuil;
   }
+
+  getId(): number {
+    return this._id;
+  }
 }

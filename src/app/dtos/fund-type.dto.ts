@@ -7,4 +7,8 @@ export class FundType implements DtoInterface {
   buildPresentation(): string {
     return this.nombre;
   }
+
+  getId(): number {
+    return this._id;
+  }
 }

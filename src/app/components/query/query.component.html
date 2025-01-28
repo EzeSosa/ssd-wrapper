@@ -32,7 +32,9 @@
                   let i = index
                 "
               >
-                <mat-option [value]="option">{{ option }}</mat-option>
+                <mat-option [value]="option.getId()">{{
+                  option.buildPresentation()
+                }}</mat-option>
               </ng-container>
             </mat-select>
           </mat-form-field>

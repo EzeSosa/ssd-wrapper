@@ -7,4 +7,8 @@ export class InputSize implements DtoInterface {
   buildPresentation(): string {
     return this.nombre_tamaño_insumo;
   }
+
+  getId(): number {
+    return this._id;
+  }
 }

@@ -9,4 +9,8 @@ export class ContainerSize implements DtoInterface {
   buildPresentation(): string {
     return `${this.largo} x ${this.ancho} x ${this.alto}`;
   }
+
+  getId(): number {
+    return this._id;
+  }
 }
