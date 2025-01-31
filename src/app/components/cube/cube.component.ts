@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,8 +34,8 @@ export class CubeComponent implements OnInit {
   #cubesService: CubesService = inject(CubesService);
   #router: Router = inject(Router);
 
-  title: string = '';
-  queries: Query[] = [];
+  title: WritableSignal<string> = signal('');
+  queries: WritableSignal<Query[]> = signal([]);
 
   ngOnInit(): void {
     this.#activatedRoute.params
@@ -43,8 +49,8 @@ export class CubeComponent implements OnInit {
   }
 
   private saveCubeInfo(cube: Cube) {
-    this.title = `Consultas disponibles sobre ${cube.title}`;
-    this.queries = cube.queries;
+    this.title.set(`Consultas disponibles sobre ${cube.title}`);
+    this.queries.set(cube.queries);
   }
 
   onGoBack() {

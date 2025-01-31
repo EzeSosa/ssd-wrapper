@@ -6,7 +6,7 @@ import { CUBES_DATA } from '../data/cubes-data';
 
 @Injectable({ providedIn: 'root' })
 export class QueryService {
-  cubes: Cube[] = CUBES_DATA;
+  cubes: Cube[] = CUBES_DATA();
 
   getQueryById(id: string): Observable<Query | undefined> {
     return of(this.getAllQueriesFromCubes().find((query) => query.id === id));

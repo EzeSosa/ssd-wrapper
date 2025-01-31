@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,11 +30,11 @@ import { CubesService } from '../../services/cubes.service';
 })
 export class CubeLayoutComponent implements OnInit {
   #cubesService: CubesService = inject(CubesService);
-  cubes: Cube[] = [];
+  cubes: WritableSignal<Cube[]> = signal([]);
 
   ngOnInit() {
     this.#cubesService.getCubes().subscribe({
-      next: (cubes) => (this.cubes = cubes),
+      next: (cubes) => this.cubes.set(cubes),
       error: (error) => console.log(error),
     });
   }

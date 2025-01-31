@@ -1,4 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,8 +25,8 @@ export class CubeCardComponent {
 
   #router: Router = inject(Router);
 
-  hoverCard: boolean = false;
-  hoverButton: boolean = false;
+  hoverCard: WritableSignal<boolean> = signal(false);
+  hoverButton: WritableSignal<boolean> = signal(false);
 
   onSeeMore(): void {
     this.#router.navigate(['/cubes', this.path]);

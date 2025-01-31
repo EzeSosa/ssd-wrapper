@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <span style="font-weight: 600; font-size: 1.5rem"
-    >Consulta sobre {{ query.title }}</span
+    >Consulta sobre {{ query().title }}</span
   >
   <button
     mat-icon-button
@@ -16,12 +16,12 @@
   <mat-card class="form-card">
     <mat-card-title class="card-title">
       <mat-icon class="card-icon">info</mat-icon>
-      {{ query.description }}
+      {{ query().description }}
     </mat-card-title>
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formGroup()" (ngSubmit)="onSubmit()">
       <mat-card-content>
         <div class="form-container">
-          @for (dimension of query.dimensions; track $index) { @switch
+          @for (dimension of query().dimensions; track $index) { @switch
           (dimension.type) { @case ('selector') {
           <mat-form-field appearance="outline">
             <mat-label>{{ dimension.name }}</mat-label>

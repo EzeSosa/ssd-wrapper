@@ -1,7 +1,7 @@
 <mat-card
   class="query-card"
-  (mouseenter)="hoverCard = true"
-  (mouseleave)="hoverCard = false"
+  (mouseenter)="hoverCard.set(true)"
+  (mouseleave)="hoverCard.set(false)"
 >
   <mat-card-title class="card-title">
     <mat-icon class="card-icon">{{ icon }}</mat-icon>
@@ -23,8 +23,8 @@
       mat-stroked-button
       color="primary"
       class="card-button"
-      (mouseenter)="hoverButton = true"
-      (mouseleave)="hoverButton = false"
+      (mouseenter)="hoverButton.set(true)"
+      (mouseleave)="hoverButton.set(false)"
       (click)="onQuery()"
     >
       Consultar

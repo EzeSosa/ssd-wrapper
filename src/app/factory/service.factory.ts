@@ -1,4 +1,10 @@
-import { inject, Injectable, Injector } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  Injector,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { map } from 'rxjs';
 import { ClientService } from '../services/client.service';
 import { BaseService } from '../interfaces/service.interface';
@@ -19,7 +25,7 @@ export class ServiceFactory {
   #injector: Injector = inject(Injector);
   #dtoFactory: DtoFactory = inject(DtoFactory);
 
-  private serviceMap: Record<string, any> = {
+  private serviceMap: WritableSignal<Record<string, any>> = signal({
     cliente: ClientService,
     tamaño_envase: ContainerSizeService,
     tipo_cierre: ClosureTypeService,
@@ -28,10 +34,10 @@ export class ServiceFactory {
     proveedor: SupplierService,
     tamaño_insumo: InputSizeService,
     insumo: InputService,
-  };
+  });
 
   createService<T extends DtoInterface>(bodyName: string): BaseService<T> {
-    const serviceClass = this.serviceMap[bodyName];
+    const serviceClass = this.serviceMap()[bodyName];
     if (!serviceClass) {
       throw new Error(`Service not found for bodyName: ${bodyName}`);
     }

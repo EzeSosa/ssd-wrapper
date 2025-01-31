@@ -1,6 +1,7 @@
+import { signal, WritableSignal } from '@angular/core';
 import { Cube } from '../interfaces/cube.interface';
 
-export const CUBES_DATA: Cube[] = [
+export const CUBES_DATA: WritableSignal<Cube[]> = signal([
   {
     id: 'ventas',
     title: 'Ventas',
@@ -148,4 +149,4 @@ export const CUBES_DATA: Cube[] = [
       },
     ],
   },
-];
+]);

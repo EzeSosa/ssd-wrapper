@@ -1,4 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
@@ -22,8 +28,8 @@ export class QueryCardComponent {
 
   #router: Router = inject(Router);
 
-  hoverCard: boolean = false;
-  hoverButton: boolean = false;
+  hoverCard: WritableSignal<boolean> = signal(false);
+  hoverButton: WritableSignal<boolean> = signal(false);
 
   onQuery(): void {
     this.#router.navigate(['/queries', this.path]);

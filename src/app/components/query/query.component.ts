@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   OnInit,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -50,44 +53,42 @@ import { DtoInterface } from '../../dtos/dto.interface';
     MatTooltipModule,
   ],
 })
-export class QueryComponent implements OnInit {
+export class QueryComponent {
   #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   #queryService: QueryService = inject(QueryService);
   #fb: FormBuilder = inject(FormBuilder);
   #location: Location = inject(Location);
   #serviceFactory: ServiceFactory = inject(ServiceFactory);
 
-  formGroup!: FormGroup;
-  query!: Query;
-  options: { [key: string]: DtoInterface[] } = {};
+  formGroup: WritableSignal<FormGroup> = signal(this.#fb.group({}));
+  query: WritableSignal<Query> = signal({} as Query);
+  options: WritableSignal<Record<string, DtoInterface[]>> = signal({});
 
-  ngOnInit(): void {
-    this.loadQuery();
-  }
-
-  private loadQuery(): void {
-    this.#activatedRoute.params
-      .pipe(
-        switchMap((params) => this.#queryService.getQueryById(params['id']))
-      )
-      .subscribe({
-        next: (query) => {
-          if (!query) return;
-          this.loadControlsFromQuery(query);
-        },
-        error: (error) => console.error(error),
-      });
+  constructor() {
+    effect(() => {
+      this.#activatedRoute.params
+        .pipe(
+          switchMap((params) => this.#queryService.getQueryById(params['id']))
+        )
+        .subscribe({
+          next: (query) => {
+            if (query) {
+              this.query.set(query);
+              this.loadControlsFromQuery(query);
+            }
+          },
+          error: (error) => console.error(error),
+        });
+    });
   }
 
   private loadControlsFromQuery(query: Query): void {
-    this.query = query;
-
-    const formControls = this.query.dimensions.reduce((controls, dimension) => {
+    const formControls = query.dimensions.reduce((controls, dimension) => {
       controls[dimension.bodyName] = ['', Validators.required];
       return controls;
     }, {} as { [key: string]: any });
 
-    this.formGroup = this.#fb.group(formControls);
+    this.formGroup.set(this.#fb.group(formControls));
     this.loadOptions(query);
   }
 
@@ -102,7 +103,7 @@ export class QueryComponent implements OnInit {
         .subscribe({
           next: (dtos) => {
             newOptions[dimension.bodyName] = dtos;
-            this.options = { ...this.options, ...newOptions };
+            this.options.set({ ...this.options(), ...newOptions });
           },
           error: (error) => console.error(error),
         });
@@ -110,11 +111,13 @@ export class QueryComponent implements OnInit {
   }
 
   getOptions(bodyName: string): DtoInterface[] {
-    return this.options[bodyName] || [];
+    return this.options()[bodyName] || [];
   }
 
   onSubmit(): void {
-    console.log('Formulario enviado:', this.formGroup.value);
+    const form = this.formGroup();
+    if (!form) return;
+    console.log('Formulario enviado:', form.value);
   }
 
   onGoBack(): void {
