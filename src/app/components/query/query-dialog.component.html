@@ -1,0 +1,18 @@
+<mat-dialog-content class="dialog-container">
+  <mat-toolbar color="primary" class="dialog-title">
+    <mat-icon>bar_chart</mat-icon>
+    <span>Resultado de la Consulta</span>
+  </mat-toolbar>
+
+  <div class="dialog-content">
+    <h3 class="dialog-text">{{ data.text }}</h3>
+    <mat-divider></mat-divider>
+    <h2 class="dialog-value">{{ data.value }}</h2>
+  </div>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close (click)="closeDialog()">
+      <mat-icon>close</mat-icon> Cerrar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

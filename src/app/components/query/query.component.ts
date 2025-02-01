@@ -3,7 +3,6 @@ import {
   Component,
   effect,
   inject,
-  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -16,13 +15,21 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { catchError, switchMap } from 'rxjs';
 import { QueryService } from '../../services/query.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Query } from '../../interfaces/query.interface';
@@ -30,6 +37,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ServiceFactory } from '../../factory/service.factory';
 import { DtoInterface } from '../../dtos/dto.interface';
+import { QueryFactory } from '../../factory/query.factory';
+import { QueryResponse } from '../../interfaces/query-response.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -45,20 +55,23 @@ import { DtoInterface } from '../../dtos/dto.interface';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbar,
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatToolbar,
     MatIconModule,
     MatTooltipModule,
   ],
 })
 export class QueryComponent {
   #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-  #queryService: QueryService = inject(QueryService);
   #fb: FormBuilder = inject(FormBuilder);
   #location: Location = inject(Location);
+  #dialog: MatDialog = inject(MatDialog);
+  #snackBar: MatSnackBar = inject(MatSnackBar);
   #serviceFactory: ServiceFactory = inject(ServiceFactory);
+  #queryFactory: QueryFactory = inject(QueryFactory);
+  #queryService: QueryService = inject(QueryService);
 
   formGroup: WritableSignal<FormGroup> = signal(this.#fb.group({}));
   query: WritableSignal<Query> = signal({} as Query);
@@ -117,10 +130,50 @@ export class QueryComponent {
   onSubmit(): void {
     const form = this.formGroup();
     if (!form) return;
-    console.log('Formulario enviado:', form.value);
+    this.#queryFactory
+      .getQuery(this.query(), form.value)
+      .pipe(
+        catchError((exception) => {
+          this.#snackBar.open(exception.error.message, 'Cerrar', {
+            duration: 2000,
+          });
+          return [];
+        })
+      )
+      .subscribe({
+        next: (value) => {
+          console.log(value);
+          this.#dialog
+            .open(DialogDataExampleDialog, { data: value })
+            .afterClosed()
+            .subscribe((value) => value && this.onGoBack());
+        },
+      });
   }
 
   onGoBack(): void {
     this.#location.back();
+  }
+}
+
+@Component({
+  selector: 'query-dialog',
+  templateUrl: 'query-dialog.component.html',
+  styleUrl: 'query-dialog.component.css',
+  imports: [
+    MatDialogContent,
+    MatToolbar,
+    MatIconModule,
+    MatDialogActions,
+    MatDivider,
+    MatButton,
+  ],
+})
+export class DialogDataExampleDialog {
+  data: QueryResponse = inject(MAT_DIALOG_DATA);
+  dialogRef: MatDialogRef<DialogDataExampleDialog> = inject(MatDialogRef);
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

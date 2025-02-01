@@ -1,0 +1,43 @@
+.dialog-container {
+  min-width: 400px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  padding: 16px;
+}
+
+.dialog-content {
+  padding: 20px;
+}
+
+.dialog-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.dialog-value {
+  font-size: 26px;
+  font-weight: bold;
+  color: #3f51b5;
+  margin-top: 14px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}

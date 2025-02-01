@@ -5,44 +5,42 @@ import { Observable } from 'rxjs';
 import { QueryResponse } from '../interfaces/query-response.interface';
 
 @Injectable({ providedIn: 'root' })
-export class SaleService {
+export class OrderService {
   #http: HttpClient = inject(HttpClient);
   #url: string = environment.apiUrl;
 
-  getEarningsByDimensions(
+  getAveragePriceByDimension(
     date: Date,
-    client: number,
-    containerSize: number
+    supplier: number,
+    inputSize: number
   ): Observable<QueryResponse> {
     const options = {
       params: new HttpParams()
         .set('date', date.toISOString())
-        .set('client', client.toString())
-        .set('containerSize', containerSize.toString()),
+        .set('supplier', supplier.toString())
+        .set('inputSize', inputSize.toString()),
     };
 
     return this.#http.get<QueryResponse>(
-      `${this.#url}/sales/earnings-by-dimensions`,
+      `${this.#url}/orders/average-orders`,
       options
     );
   }
 
-  getBatchesByDimensions(
+  getOrdersByDimensions(
     date: Date,
-    closureType: number,
-    entranceType: number,
-    fundType: number
+    supplier: number,
+    inputSize: number
   ): Observable<QueryResponse> {
     const options = {
       params: new HttpParams()
         .set('date', date.toISOString())
-        .set('closureType', closureType.toString())
-        .set('entranceType', entranceType.toString())
-        .set('fundType', fundType.toString()),
+        .set('supplier', supplier.toString())
+        .set('inputSize', inputSize.toString()),
     };
 
     return this.#http.get<QueryResponse>(
-      `${this.#url}/sales/batches-by-dimensions`,
+      `${this.#url}/orders/input-quantity`,
       options
     );
   }
